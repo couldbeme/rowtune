@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="332" viewBox="0 0 760 332" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img"><title>Accuracy kept before and after rowtune</title><rect width="760" height="332" rx="10" fill="#f3f1ea"/>
+<text x="24" y="34" font-size="15" fill="#121212" text-anchor="start" font-weight="700">Accuracy kept, as a share of the 16-bit model (Qwen3-1.7B, 10,277 questions)</text>
+<text x="238" y="76" font-size="14" fill="#121212" text-anchor="end" font-weight="400">16-bit original</text>
+<rect x="250" y="56" width="390.0" height="28" rx="3" fill="#5c5850"/>
+<text x="648.0" y="76" font-size="15" fill="#5c5850" text-anchor="start" font-weight="700">100%</text>
+<text x="238" y="120" font-size="14" fill="#121212" text-anchor="end" font-weight="400">OpenVINO INT4 export</text>
+<rect x="250" y="100" width="155.4" height="28" rx="3" fill="#2b2b2b"/>
+<text x="413.41499999999996" y="120" font-size="15" fill="#2b2b2b" text-anchor="start" font-weight="700">87.97%</text>
+<text x="238" y="164" font-size="14" fill="#121212" text-anchor="end" font-weight="400">after rowtune (149 s)</text>
+<rect x="250" y="144" width="297.6" height="28" rx="3" fill="#b42318"/>
+<text x="555.5700000000002" y="164" font-size="15" fill="#b42318" text-anchor="start" font-weight="700">95.26%</text>
+<text x="238" y="208" font-size="14" fill="#121212" text-anchor="end" font-weight="400">GGUF Q4_0 file</text>
+<rect x="250" y="188" width="288.6" height="28" rx="3" fill="#2b2b2b"/>
+<text x="546.5999999999999" y="208" font-size="15" fill="#2b2b2b" text-anchor="start" font-weight="700">94.80%</text>
+<text x="238" y="252" font-size="14" fill="#121212" text-anchor="end" font-weight="400">after rowtune (145 s)</text>
+<rect x="250" y="232" width="357.4" height="28" rx="3" fill="#b42318"/>
+<text x="615.435" y="252" font-size="15" fill="#b42318" text-anchor="start" font-weight="700">98.33%</text>
+<line x1="250" y1="50" x2="250" y2="276" stroke="#121212" stroke-width="1.5"/>
+<text x="250" y="296" font-size="12" fill="#5c5850" text-anchor="middle" font-weight="400">80%</text>
+<text x="640" y="296" font-size="12" fill="#5c5850" text-anchor="middle" font-weight="400">100%</text>
+<text x="24" y="318" font-size="12" fill="#5c5850" text-anchor="start" font-weight="400">Same file size, same integer codes. The axis starts at 80%.</text>
+</svg>

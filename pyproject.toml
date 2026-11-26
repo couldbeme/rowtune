@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rowtune"
+version = "0.1.0"
+description = "Upgrade a 4-bit model file in its own format: one tuned multiplier per output row, integer codes bit-identical."
+readme = "README.md"
+license = { text = "Apache-2.0" }
+authors = [{ name = "Alexandra Zhuravlyova" }]
+requires-python = ">=3.10"
+dependencies = ["torch>=2.1", "numpy"]
+
+[project.optional-dependencies]
+hf = ["transformers", "huggingface_hub"]
+parquet = ["pyarrow"]
+
+[project.scripts]
+rowtune = "rowtune.cli:main"
+
+[tool.setuptools]
+packages = ["rowtune", "rowtune.formats"]

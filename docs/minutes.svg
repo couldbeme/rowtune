@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" font-family="-apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" role="img"><title>Time to repair a 4-bit model</title><rect width="760" height="200" rx="10" fill="#f3f1ea"/>
+<text x="24" y="34" font-size="15" fill="#121212" text-anchor="start" font-weight="700">GPU time to repair the same 4-bit model (SmolLM2-1.7B, one scale per row)</text>
+<text x="118" y="81" font-size="14" fill="#121212" text-anchor="end" font-weight="400">OmniQuant</text>
+<rect x="130" y="58" width="300.0" height="34" rx="3" fill="#2b2b2b"/>
+<text x="438.0" y="81" font-size="15" fill="#2b2b2b" text-anchor="start" font-weight="700">67.1 min, reaches 92.7%</text>
+<text x="118" y="137" font-size="14" fill="#121212" text-anchor="end" font-weight="400">rowtune</text>
+<rect x="130" y="114" width="8.9" height="34" rx="3" fill="#b42318"/>
+<text x="146.94187779433682" y="137" font-size="15" fill="#b42318" text-anchor="start" font-weight="700">2.0 min, reaches 92.6%</text>
+<line x1="130" y1="50" x2="130" y2="158" stroke="#121212" stroke-width="1.5"/>
+<text x="24" y="186" font-size="12" fill="#5c5850" text-anchor="start" font-weight="400">The two results are a statistical tie; running rowtune on top of OmniQuant adds 1.71 points.</text>
+</svg>
