@@ -206,7 +206,8 @@ the numbers are my own work.
 ## Paper
 
 A short paper with the method, the measurements, related work and the machine-checked statements:
-DOI [10.5281/zenodo.24557645](https://doi.org/10.5281/zenodo.24557645). The Lean file is in `lean/`.
+DOI [10.5281/zenodo.24557644](https://doi.org/10.5281/zenodo.24557644) (always the latest version; version 2 adds the
+baselines). The Lean file is in `lean/`.
 
 ## Licence
 
