@@ -137,10 +137,11 @@ def read(path):
 
 
 def write(src, dst, factors):
-    """Copy src byte for byte, then multiply the block scales d of each Q4_0 linear's rows by the factors (HF row order)."""
+    """Copy src byte for byte, then multiply the block scales d of each Q4_0 linear by the factors (HF row order): one factor per
+    row, or one per 32-weight block ([rows, cols/32])."""
     info = parse(src)
     lin, _ = _q4_0_linears(info)
-    check_factors(factors, {hf: v[2] for hf, v in lin.items()})
+    check_factors(factors, {hf: v[2] for hf, v in lin.items()}, {hf: v[3] // 32 for hf, v in lin.items()})
     if os.path.exists(dst):
         raise FileExistsError(dst)
     part = dst + ".part"
@@ -154,7 +155,8 @@ def write(src, dst, factors):
             c = c[p]
         blk = mm[off:off + n].reshape(rows, cols // 32, BLOCK)
         d = np.ascontiguousarray(blk[:, :, :2]).view(np.float16).astype(np.float32)
-        blk[:, :, :2] = (d * c[:, None, None]).astype(np.float16).view(np.uint8).reshape(rows, cols // 32, 2)
+        cb = c[:, None, None] if c.ndim == 1 else c[:, :, None]
+        blk[:, :, :2] = (d * cb).astype(np.float16).view(np.uint8).reshape(rows, cols // 32, 2)
     mm.flush()
     del mm
     os.replace(part, dst)

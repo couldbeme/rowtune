@@ -1,0 +1,31 @@
+# sha256  bytes  mtime(server clock, not trusted)  path
+d11c8a98ac12a254424bcf8385a18bd087eeb7ba85f42f291b19a38bae8fedb2  28254  2026-11-23 20:02:51  <bench>/bench_levers.py
+ad84a0b15add347b04362fca1feed38570a7c6f71aebb298692cbde8484aa5bf  21526  2026-11-23 19:08:50  <bench>/bench_levers_ov.py
+99a17ac2bf0fdb5ad602f948f406fd8fc415c0159147e34213fc51a783331295  19315  2026-11-23 09:17:31  <bench>/bench_levers.before-code.py
+e133e6065bfda07ddb31dcf61dabd8864987570678e69969c5dd80d06f27e7f1  4846  2026-11-23 10:16:43  <bench>/bootstrap_ci.py
+f4150bf6a6f70a3224ee0ecd6f625f44ad9a0fd481d364c28423e5637bea5719  5244783  2026-11-23 05:33:00  <bench>/results/methods_qwen3_1.7b.json
+97f7f2f56fbc4ade23a42d31a83ef5b64ef4e8d2811fa473fff1a61896d85263  910887  2026-11-23 10:27:58  <bench>/results/levers_gguf_qwen3_1.7b_q4_0.json
+22e3ba098dc2d4bf0498bc29de26886c09d43732e85fdb18aac285e6bfe3b651  4874  2026-11-26 15:07:33  <bench>/rowtune-test/scripts/dequant_to_hf.py
+0a12c99cf2a65f50445a21fed8c2f2513abc5926e05d8382607d6253dcbc4a34  3855  2026-11-26 15:07:33  <bench>/rowtune-test/scripts/gguf_hf_map.py
+d4937f5ec8e0f72da60cafe4dd07fe6281e7ed600c69997ed4c30bfd5f4ac325  5725  2026-11-26 15:07:33  <bench>/rowtune-test/scripts/ir_dequant.py
+69686c37378d66e397b49926287e941633ecf17f3eeee8ea63a668ab614fdbee  754  2026-11-26 15:07:33  <bench>/rowtune-test/scripts/ir_norm.py
+d49dc66c827b0cbb04a76f279c444cdb9e47591df693d6f62d7b84bf05b99af8  2252  2026-11-26 15:11:46  <bench>/rowtune-test/scripts/paired_ci.py
+73cfebc955df42ca9d476190b403d7bfd8e93c81008c879534d48ed43a3be3e6  4878  2026-11-26 17:36:45  <work>/scripts/dequant_to_hf.py
+0a12c99cf2a65f50445a21fed8c2f2513abc5926e05d8382607d6253dcbc4a34  3855  2026-11-26 17:36:45  <work>/scripts/gguf_hf_map.py
+d4937f5ec8e0f72da60cafe4dd07fe6281e7ed600c69997ed4c30bfd5f4ac325  5725  2026-11-26 17:36:45  <work>/scripts/ir_dequant.py
+69686c37378d66e397b49926287e941633ecf17f3eeee8ea63a668ab614fdbee  754  2026-11-26 17:36:45  <work>/scripts/ir_norm.py
+d49dc66c827b0cbb04a76f279c444cdb9e47591df693d6f62d7b84bf05b99af8  2252  2026-11-26 17:36:45  <work>/scripts/paired_ci.py
+8e020811442c82fdb1bf1a49235051329fc0b36185909bb9c4a32af1fe7b8acd  459  2026-11-26 17:36:45  <work>/scripts/models_floor.json
+d49dc66c827b0cbb04a76f279c444cdb9e47591df693d6f62d7b84bf05b99af8  2252  2026-11-26 13:31:25  <work>/src/floor/paired_ci.py
+c1ede04f067441d1bb5d185949073c0a9694e1d29ed47151ff5215bd8ebb2899  1129782944  2026-11-23 10:08:46  <bench>/gguf/src/Qwen3-1.7B-Q4_0-from-Q8_0-ggufpy.gguf
+0baca261d2619f06b9d4da7687110aaacdc5dbe0fe4c1f993622cae6f329bcfb  1129782944  2026-11-26 15:06:59  <bench>/rowtune-test/qwen3-1.7b-q4_0-rowtune.gguf
+3a74f1308fd473a665b3a8396d9b5d47b49a3f4c1f83cfdb4748bd507758d4ba  2360311  2026-11-26 15:07:00  <bench>/rowtune-test/qwen3-1.7b-q4_0-rowtune.gguf.row_scales.pt
+53c1d3a614121c96681bff33a5e3539395c71c1b9230e4fd40ad7fa82c0a7735  2358291  2026-11-26 15:07:06  <bench>/rowtune-test/q17_awq_se_rowtune.row_scales.pt
+143433d3e0c208727ee4a29d0ae15629bb665d12b1939e880dcd302b9ad5c1ad  1017906829  2026-11-23 10:35:19  <bench>/ov/q17_sym_channel_awq_se/openvino_model.bin
+3a491e8f25710662b39ed01f883518aaa0206cf4780002f92894a7a680a39b97  2502821  2026-11-23 10:35:19  <bench>/ov/q17_sym_channel_awq_se/openvino_model.xml
+9e7c94274bfb634e3e354d9be7f06982d20f9ce6c15483f7d4002d4504480858  1017906829  2026-11-26 15:07:03  <bench>/rowtune-test/q17_awq_se_rowtune/openvino_model.bin
+3a491e8f25710662b39ed01f883518aaa0206cf4780002f92894a7a680a39b97  2502821  2026-11-23 10:35:19  <bench>/rowtune-test/q17_awq_se_rowtune/openvino_model.xml
+21289840c494bb1f28f2298c3b4d87961a95916852f3ce346927cfea022974eb  2818855528  2026-11-26 15:19:58  <bench>/rowtune-test/ckpt/q4_0_input/model.safetensors
+1f07cb3167812e4930745e237a3ba7ea37e2f25ec8909258f2b7bb48b5b81a8e  2818855520  2026-11-26 15:07:48  <bench>/rowtune-test/ckpt/q4_0_rowtune/model.safetensors
+5531f93dc10c2ae3e6e1ae3363812eb62e85c5fe265335ad76c698986a71aee8  3441185608  2026-11-26 15:08:18  <bench>/rowtune-test/ckpt/ov_rowtune/model.safetensors
+a1a797f0daf49669226bbb908f1e597eaeaa59fe2ae0fcb87936379de417610f  <bench>/results/levers_qwen3_1.7b_ov_sym_channel_awq_se.json

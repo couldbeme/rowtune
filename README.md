@@ -100,6 +100,21 @@ The scores of the two input files come from my earlier runs of the same evaluati
 - **Code** (HumanEval + MBPP, pass@1, tuned on public Python code): 33.1% → 39.5%, where 16-bit scores 42.0%. One run.
 - **On a chip:** one run on Apple's Neural Engine, 500 LAMBADA items: 27.4% → 47.6%, against 50.6% for 16-bit on a GPU.
 
+### Baselines on the same file
+
+Run under a plan fixed in advance (`baselines/PLAN.md`; results and deviations in `baselines/REPORT.md`), on the
+Qwen3-1.7B GGUF Q4_0 file, one run and one seed per arm.
+
+- **One multiplier per row (rowtune):** 573,440 trained values, 98.33% kept.
+- **One multiplier per 32-weight block:** 44,040,192 trained values (77 times more), 98.58% kept. The difference is
+  -0.14 points [-0.60, +0.30], a tie within the margin set in advance, and the held-out KL is the same to three
+  decimals (0.110).
+- **The published closed-form least-squares multiplier**, with no training: 94.35% kept against 94.80% for the
+  untouched file. It does not recover the loss here.
+
+So on this file the restriction to one number per row costs no measurable accuracy, and the gain comes from tuning
+end to end, not from fitting each layer separately. `rowtune ... --per-block 32` reproduces the per-block arm.
+
 ### Time
 
 <p align="center"><img src="docs/minutes.svg" alt="GPU time to repair the same 4-bit model: OmniQuant 67.1 minutes for 92.7 percent, rowtune 2.0 minutes for 92.6 percent." width="760"></p>
@@ -135,7 +150,7 @@ result. Python entry points: `rowtune.core.attach_row_scales`, `rowtune.tune.tun
 
 ## What has been checked, and what has not
 
-- **Tests** (67, no GPU, no download): on tiny synthetic files of each format, codes are bit-identical, scales changed,
+- **Tests** (104, no GPU, no download): on tiny synthetic files of each format, codes are bit-identical, scales changed,
   structure and byte size unchanged, the file loads again, and the upgraded file is closer to the teacher than the input.
   Run them with `python -I -m unittest`.
 - **Real files, end to end:** the two results above. All 196 linear layers were handled in both files.
@@ -160,8 +175,9 @@ result. Python entry points: `rowtune.core.attach_row_scales`, `rowtune.tune.tun
   result except where repeats are stated. Repeated runs vary by up to 2.4 points of kept share.
 - **A variant is not included.** A further version of the method scores slightly higher but does not fit a stock 4-bit file
   format, so I left it out and make no claim for it.
-- **No head-to-head with per-group scale training yet.** I have not run DWQ-style training on the same files, so I make
-  no claim about which recovers more.
+- **Baselines cover one file.** The comparison with per-block scale training and with the closed form was run on one
+  GGUF file with one seed. DWQ itself was not run: the per-block arm is a DWQ-style parametrisation, without biases,
+  trained with this tool.
 - The 4-bit rounding in `rowtune round` is my own implementation and has not been checked bit for bit against other tools.
 
 ## How this relates to other work

@@ -1,0 +1,44 @@
+{
+ "arc_easy": {
+  "items": 2000,
+  "same_correct": 2000,
+  "same_pred": 2000,
+  "mean_released": 0.626,
+  "mean_rescored": 0.626
+ },
+ "arc_challenge": {
+  "items": 1172,
+  "same_correct": 1172,
+  "same_pred": 1172,
+  "mean_released": 0.3250853242320819,
+  "mean_rescored": 0.3250853242320819
+ },
+ "hellaswag": {
+  "items": 2000,
+  "same_correct": 2000,
+  "same_pred": 2000,
+  "mean_released": 0.379,
+  "mean_rescored": 0.379
+ },
+ "piqa": {
+  "items": 1838,
+  "same_correct": 1838,
+  "same_pred": 1838,
+  "mean_released": 0.6893362350380848,
+  "mean_rescored": 0.6893362350380848
+ },
+ "winogrande": {
+  "items": 1267,
+  "same_correct": 1267,
+  "same_pred": 1267,
+  "mean_released": 0.5777426992896606,
+  "mean_rescored": 0.5777426992896606
+ },
+ "lambada_openai": {
+  "items": 2000,
+  "same_correct": 2000,
+  "same_pred": 2000,
+  "mean_released": 0.3905,
+  "mean_rescored": 0.3905
+ }
+}

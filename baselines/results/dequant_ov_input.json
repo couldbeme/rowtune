@@ -1,0 +1,18 @@
+{
+ "n": 196,
+ "max_rel_bf16": 0.0038910505827516317,
+ "max_distinct": 16,
+ "code_min": -8,
+ "code_max": 7,
+ "zp_present": 0,
+ "rel_err_vs_orig": {
+  "min": 0.12387022376060486,
+  "mean": 0.24583264953475825,
+  "max": 7.914141654968262
+ },
+ "norms": {
+  "n": 56,
+  "ratio_min": 1.0,
+  "ratio_max": 1.0
+ }
+}

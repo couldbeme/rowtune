@@ -19,6 +19,21 @@ class RowScale(torch.nn.Module):
         return W * self.c.to(W.dtype)[:, None]
 
 
+class BlockScale(torch.nn.Module):
+    """One float32 factor per block of `block` consecutive columns of every row (the granularity of the Q4_0 scale).
+    As a parametrisation of a weight W it returns W * expand(c)."""
+
+    def __init__(self, rows, cols, device, block=32):
+        super().__init__()
+        if cols % block:
+            raise ValueError(f"columns {cols} not divisible by block {block}")
+        self.block = block
+        self.c = torch.nn.Parameter(torch.ones((rows, cols // block), device=device, dtype=torch.float32))
+
+    def forward(self, W):
+        return W * self.c.to(W.dtype).repeat_interleave(self.block, 1)
+
+
 def quantize_rtn(W, bits=4, group_size=0):
     """Symmetric round-to-nearest, no zero point; one scale per row (group_size 0) or per group of columns.
     scale = max|w| / ((qmax - qmin) / 2). Returns (dequantised float32, integer codes int8, scale)."""
@@ -70,6 +85,20 @@ def attach_row_scales(model, only=None):
     return mods
 
 
+def attach_block_scales(model, block=32, only=None):
+    """As attach_row_scales, with one factor per `block` columns of every row. Returns {name: BlockScale}."""
+    for p in model.parameters():
+        p.requires_grad_(False)
+    mods = {}
+    for n, m in linears(model).items():
+        if only is not None and n not in only:
+            continue
+        rs = BlockScale(m.weight.shape[0], m.weight.shape[1], m.weight.device, block)
+        P.register_parametrization(m, "weight", rs)
+        mods[n] = rs
+    return mods
+
+
 @torch.no_grad()
 def fold_row_scales(model):
     """Replace each parametrised weight by its value W * c and drop the parametrisation."""
@@ -87,3 +116,8 @@ def rows_not_pure_rescale(W_after, W_before, tol=2e-2):
     rmax = ratio.amax(dim=1, keepdim=True)
     rmin = torch.where(nz, ratio, rmax).amin(dim=1, keepdim=True)
     return int(((rmax - rmin).abs() > tol * rmax.abs().clamp(min=1e-6)).sum())
+
+
+def groups_not_pure_rescale(W_after, W_before, group, tol=2e-2):
+    """As rows_not_pure_rescale, for groups of `group` consecutive columns: groups whose ratio is not one constant."""
+    return rows_not_pure_rescale(W_after.float().reshape(-1, group), W_before.float().reshape(-1, group), tol)

@@ -1,0 +1,19 @@
+{
+ "disjoint": true,
+ "shared_docs": 0,
+ "identical_windows": 0,
+ "tune_windows": 600,
+ "held_windows": 200,
+ "tune_docs_read": 3726,
+ "held_docs_read": 1231,
+ "documents": 350446,
+ "tune_tokens": 614400,
+ "held_tokens": 204800,
+ "parquet": "<data>/ripple/corpus/wikitext/wikitext-103-raw-v1/train-00001-of-00002.parquet",
+ "parquet_sha256": "ba090ac30dbf5461e8dcbdd1a1b8e6f3cf9c2c756d64f0c1220450acd514f720",
+ "tune_seed": 1,
+ "held_seed": 12345,
+ "length": 1024,
+ "n_texts": 900675,
+ "windows_json_sha256": "616bc09042b032e81ec573b448e4369f11d9857b1fe5ccee9cb56ae9fcbd1286"
+}

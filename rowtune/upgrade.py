@@ -34,15 +34,17 @@ def student_from(q, factory, dtype):
     return model
 
 
-def upgrade(src, dst, teacher, factory, windows, lr=DEFAULT_LR, device="cuda:0", teacher_device=None, dtype=torch.bfloat16):
+def upgrade(src, dst, teacher, factory, windows, lr=DEFAULT_LR, device="cuda:0", teacher_device=None, dtype=torch.bfloat16, block=0):
     """Returns the tuning statistics (with the learned `scales`), the format name, skipped tensors and the file check of dst against src."""
     fmt = detect(src)
+    if block and fmt.NAME != "gguf":
+        raise ValueError("per-block multipliers are only supported for GGUF Q4_0 (one scale per 32-weight block)")
     q = fmt.read(src)
     if not q.linears:
         raise ValueError(f"{src}: no supported 4-bit linear weights found")
     student = student_from(q, factory, dtype).to(device).eval()
     names = [n.removesuffix(".weight") for n in q.linears]
-    info = tune(student, teacher, windows, lr=lr, device=device, teacher_device=teacher_device, only=names)
+    info = tune(student, teacher, windows, lr=lr, device=device, teacher_device=teacher_device, only=names, block=block)
     factors = {n + ".weight": f for n, f in effective_factors(info["scales"], dtype).items()}
     fmt.write(src, dst, factors)
     info.update(format=fmt.NAME, skipped=q.skipped, file_check=fmt.verify(src, dst))

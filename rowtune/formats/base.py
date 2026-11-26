@@ -23,13 +23,15 @@ class Quantised:
     skipped: list = field(default_factory=list)
 
 
-def check_factors(factors, rows):
-    """factors: {HF weight name: float vector}; rows: {HF weight name: row count} of what the file can patch."""
+def check_factors(factors, rows, groups=None):
+    """factors: {HF weight name: float vector}; rows: {HF weight name: row count} of what the file can patch.
+    groups: optional {HF weight name: groups per row}; if given, a [rows, groups] array (one factor per block) is accepted too."""
     for n, c in factors.items():
         if n not in rows:
             raise ValueError(f"no supported 4-bit linear named {n} in the file")
-        if np.asarray(c).shape != (rows[n],):
-            raise ValueError(f"{n}: {np.asarray(c).shape} factors for {rows[n]} rows")
+        shape = np.asarray(c).shape
+        if shape != (rows[n],) and not (groups is not None and shape == (rows[n], groups[n])):
+            raise ValueError(f"{n}: {shape} factors for {rows[n]} rows" + (f" x {groups[n]} blocks" if groups is not None else ""))
 
 
 def to_bf16_bits(x):

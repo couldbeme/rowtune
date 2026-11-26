@@ -1,0 +1,28 @@
+{
+ "arm": "c2",
+ "fmt": "gguf",
+ "input": "<bench>/gguf/src/Qwen3-1.7B-Q4_0-from-Q8_0-ggufpy.gguf",
+ "output": "<work>/files/gguf_c2.gguf",
+ "compute_seconds": 730.0,
+ "n_values": 573440,
+ "c_min": -2.5625,
+ "c_max": 11.3125,
+ "c_mean": 0.9453642964363098,
+ "median_abs_log": NaN,
+ "windows": 600,
+ "tokens": 614400,
+ "file_check": {
+  "format": "gguf",
+  "same_size": true,
+  "same_structure": true,
+  "codes_identical": true,
+  "other_tensors_identical": true,
+  "padding_identical": true,
+  "scale_tensors": 196,
+  "scale_tensors_changed": 196,
+  "scale_rows_changed": 556252,
+  "bytes": 1129782944,
+  "PASS": true
+ },
+ "VOID": false
+}

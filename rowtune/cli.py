@@ -88,6 +88,8 @@ def parse_upgrade_args(argv=None):
     ap.add_argument("--dtype", choices=sorted(DTYPES), default="bf16")
     ap.add_argument("--device", default="cuda:0", help="device of the student")
     ap.add_argument("--teacher-device", default=None, help="device of the teacher (default: --device)")
+    ap.add_argument("--per-block", type=int, default=0, metavar="N", help="experimental, GGUF Q4_0 only: one multiplier per N consecutive weights "
+                    "(N = 32, the Q4_0 block) instead of one per row")
     return ap.parse_args(argv)
 
 
@@ -122,9 +124,9 @@ def run_upgrade(a):
     if len(windows) < a.steps:
         print(f"warning: text gave {len(windows)} windows, fewer than --steps {a.steps}", flush=True)
     info = upgrade(a.input, a.output, teacher, lambda: hf.load_causal_lm(teacher_name, dt, a.device), windows, lr=a.lr, device=a.device,
-                   teacher_device=tdev, dtype=dt)
+                   teacher_device=tdev, dtype=dt, block=a.per_block)
     scales = info.pop("scales")
-    info.update(input=os.path.basename(os.path.normpath(a.input)), teacher=teacher_name, length=a.length, lr=a.lr, seed=a.seed, dtype=a.dtype,
+    info.update(input=os.path.basename(os.path.normpath(a.input)), teacher=teacher_name, length=a.length, lr=a.lr, seed=a.seed, dtype=a.dtype, per_block=a.per_block,
                 seconds=round(time.time() - t0, 1))
     torch.save(scales, a.output + ".row_scales.pt")
     with open(a.output + ".rowtune.json", "w") as f:
