@@ -130,8 +130,10 @@ result. Python entry points: `rowtune.core.attach_row_scales`, `rowtune.tune.tun
   structure and byte size unchanged, the file loads again, and the upgraded file is closer to the teacher than the input.
   Run them with `python -I -m unittest`.
 - **Real files, end to end:** the two results above. All 196 linear layers were handled in both files.
-- **Not run yet:** the safetensors layout on a real release (it is written from library documentation); loading a written
-  GGUF in llama.cpp itself; a second seed.
+- **In llama.cpp:** the upgraded Qwen3-1.7B Q4_0 file (checksum identical to the scored file) loads in llama.cpp
+  (`llama-cli`, build 11669) on an Apple M2 Max, is recognised as Q4_0 and answers three test prompts correctly at about
+  190 tokens per second. That is a load-and-answer check, not a benchmark.
+- **Not run yet:** the safetensors layout on a real release (it is written from library documentation); a second seed.
 
 ## Limits
 
