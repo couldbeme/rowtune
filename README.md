@@ -160,7 +160,20 @@ result. Python entry points: `rowtune.core.attach_row_scales`, `rowtune.tune.tun
   result except where repeats are stated. Repeated runs vary by up to 2.4 points of kept share.
 - **A variant is not included.** A further version of the method scores slightly higher but does not fit a stock 4-bit file
   format, so I left it out and make no claim for it.
+- **No head-to-head with per-group scale training yet.** I have not run DWQ-style training on the same files, so I make
+  no claim about which recovers more.
 - The 4-bit rounding in `rowtune round` is my own implementation and has not been checked bit for bit against other tools.
+
+## How this relates to other work
+
+Tuning the scales of a quantised model against the full-precision model, with the integer codes left alone, is an
+established idea: MLX-LM's DWQ does it for MLX files, and ThinkBit (arXiv 2610.34886) uses it as one stage at 2 bits.
+rowtune is the simplest form of it that I know of, and one I have not found in prior work: a single multiplier per
+output row and nothing else. It works in place on GGUF Q4_0 and OpenVINO INT4 files that already exist, and checks
+byte by byte that no code changed.
+
+It is also a different thing from fixing each layer's scales separately. The OpenVINO export in the results had
+already been through OpenVINO's own Scale Estimation, and rowtune added 4.13 points on top of it.
 
 ## Contributing
 
@@ -170,8 +183,8 @@ and can serve as a pattern.
 
 ## AI assistance
 
-An AI assistant (Claude) helped write the code, tests and documentation in this repository. The method, the experiments and
-the numbers come from my own work.
+An AI assistant (Claude) helped write the code, tests and documentation in this repository. The tool, the experiments and
+the numbers are my own work.
 
 ## Licence
 
