@@ -1,9 +1,9 @@
 # Reproducing the case-study rows
 
-Every number below is copied from my case study (23 November 2026) and its bootstrap table. Nothing in this file was
-re-run for the release: **not run here** applies to every measured number, because the measurements need GPUs, model
-downloads and the original evaluation driver, none of which were available when this repository was prepared. What was
-run here is the test suite (see the end).
+Every number below is copied from my case study (23 November 2026) and its bootstrap table, and I did not re-run any of
+them for the release. The measurements need GPUs, model downloads and the original evaluation driver, and none of these
+were available when I prepared this repository, so **not run here** applies to every measured number. The only thing run
+here is the test suite (see the end).
 
 All gains are paired differences in mean accuracy (points) over six zero-shot tasks, with 95% intervals from a paired
 bootstrap (2,000 resamples, seed 0, questions resampled within each task, the same indices for every version).
@@ -88,10 +88,11 @@ difference +2.00 [+1.36, +2.68]; 734 s on two GPUs. Not run here, and the GPTQ s
       --parquet $TEXT --out out/q8-redhat --device cuda:0 --teacher-device cuda:1
 
 Expected: Qwen3-1.7B +1.24 points [+0.75, +1.71] (96.7% to 98.9% kept; 128 s); Qwen3-8B +1.13 [+0.72, +1.56]
-(98.0% to 99.7% kept), and against 16-bit -0.20 [-0.72, +0.33], within noise (353 s on two GPUs). The same release
-rebuilt through the case study's pipeline scored +0.09 and +0.07 against the published files, so the gain is not an
-artefact of the pipeline. `--student-compressed` (decompression of the compressed-tensors format) is a one-line
-call in `rowtune/hf.py` and was not exercised here. `rowtune round` writes a 16-bit checkpoint of the tuned weights; to get the same release back as a 4-bit file use the in-place command of 3.6. Not run here.
+(98.0% to 99.7% kept), and against 16-bit -0.20 [-0.72, +0.33], within noise (353 s on two GPUs). Rebuilt through the
+case study's pipeline, the same release scored +0.09 and +0.07 against the published files, so the pipeline itself does
+not account for the gain. `--student-compressed` (decompression of the compressed-tensors format) is a one-line call in
+`rowtune/hf.py` and was not exercised here. `rowtune round` writes a 16-bit checkpoint of the tuned weights; to get the
+same release back as a 4-bit file, use the in-place command of 3.6. Not run here.
 
 ### 3.5 GPTQ per 128 weights, plus my method
 
@@ -100,9 +101,9 @@ SmolLM2-1.7B +3.55 [+2.83, +4.27]. Not run here.
 
 ### 3.6 Files already shipped (OpenVINO channel-wise INT4, llama.cpp GGUF Q4_0, packed 4-bit safetensors)
 
-In the case study these rows tuned a 16-bit checkpoint of the dequantised weights of the shipped file, then wrote the factors
-back into the file's scales with my own scripts (same size, codes untouched). `rowtune INPUT -o OUTPUT` now does the whole
-chain in one command and writes the file in the same format:
+In the case study I tuned a 16-bit checkpoint of the shipped file's dequantised weights for these rows, then wrote the
+factors back into the file's scales with my own scripts (same size, codes untouched). `rowtune INPUT -o OUTPUT` now does
+the whole chain in one command and writes the file in the same format:
 
     rowtune gguf/Qwen3-1.7B-Q4_0.gguf -o out/Qwen3-1.7B-Q4_0-rowtune.gguf --teacher models/qwen3-1.7b --parquet $TEXT
     rowtune openvino/qwen3-1.7b-int4-sym-channel -o out/qwen3-1.7b-int4-rowtune --teacher models/qwen3-1.7b --parquet $TEXT
@@ -125,9 +126,9 @@ What was run here on real files (read-only on the originals, outputs in a separa
 
 ### 3.6b Tuning the original GGUF and OpenVINO rows with the earlier scripts
 
-Not part of this repository: the earlier dequantise and write-back scripts and the lm-eval driver stay private. Their steps (read codes
-and scales, dequantise, tune, multiply scales by the factors) are what `rowtune INPUT -o OUTPUT` performs; the differences that could
-move a number are listed in README "Limits".
+The earlier dequantise and write-back scripts and the lm-eval driver are not part of this repository and stay private.
+`rowtune INPUT -o OUTPUT` performs the same steps (read codes and scales, dequantise, tune, multiply the scales by the
+factors); README "Limits" lists the differences that could move a number.
 
 ### 3.7 Code, domain text
 
@@ -142,4 +143,5 @@ sandbox that is not part of this repository. One run. Not run here.
 
     python -I -m unittest
 
-67 tests, all passing at the time of writing; they use a tiny random torch model and tiny synthetic files of each format and need neither a GPU nor a download.
+67 tests, all passing at the time of writing. They use a tiny random torch model and tiny synthetic files of each
+format, and need neither a GPU nor a download.
