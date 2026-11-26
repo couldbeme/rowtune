@@ -112,7 +112,7 @@ the whole chain in one command and writes the file in the same format:
 Expected, Qwen3-1.7B (case study, measured with the earlier scripts): OpenVINO export with AWQ and Scale Estimation 88.0% to
 95.3% kept, +4.16 points [+3.44, +4.85]; GGUF Q4_0 +2.11 [+1.54, +2.66] (plain file), +1.17 [+0.67, +1.67] (importance-matrix
 file), +1.25 [+0.73, +1.74] (a third file); Q4_K_M files and one mixed-precision file tie (+0.31, +0.32, +0.10, all intervals
-crossing zero); RedHatAI release: row 3.4. **Not run here: the tuning step on any real file.**
+crossing zero); RedHatAI release: row 3.4. **Run with this tool on 26 November 2026 for the Q4_0 file and the OpenVINO export (see the README); the other rows have not been re-run with it.**
 
 What was run here on real files (read-only on the originals, outputs in a separate folder, random row factors, no tuning):
 - GGUF: a community Q4_0 file of Qwen3-1.7B (193 of its 196 decoder linears are Q4_0, three are stored in another type and left
